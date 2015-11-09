@@ -1,0 +1,262 @@
+.wysiwyg
+  font-family: inherit
+  font-style: normal
+  font-weight: normal
+  //line-height: 20/14
+  font-size: 1rem
+  color: inherit
+  -ms-text-size-adjust: 100%
+  -webkit-text-size-adjust: 100%
+  margin: 0
+  page-break-inside: auto
+  white-space: normal
+  background: #fff
+  .fr-dib
+    display: block
+  .fr-dii
+    display: inline-block
+  .fr-file
+    position: relative
+    &:after
+      position: relative
+      content: "\1F4CE"
+  h1
+    font-size: 2em
+    margin: .67em 0
+  h2
+    font-size: 1.5em
+    margin: .75em 0
+  h3
+    font-size: 1.17em
+    margin: .83em 0
+  h4
+    font-size: 1.12em
+    margin: 1.12em 0
+  h5
+    font-size: 0.83em
+    margin: 1.5em 0
+  h6
+    font-size: 0.75em
+    margin: 1.67em 0
+  h1, h2, h3, h4, h5, h6
+    font-family: inherit
+    font-weight: 700
+    line-height: 1.1
+    color: inherit
+    &:first-child
+      margin-top: 0
+  hr
+    border: 0
+    border-top: 1px solid #ccc
+  em
+    font-style: italic
+  b, strong
+    font-weight: bold
+  blockquote, p, ul, ol
+    margin: 0 0 1em 0
+    padding: 0
+    &:empty
+      display: none
+  p, h5, h6
+    + ul, + ol
+      margin-top: -0.35em
+  h1, h2, h3, h4
+    + ul, + ol
+      margin-top: -0.7em
+  ol
+    list-style-type: decimal
+  ul
+    list-style-type: disc
+  ol, ul
+    padding: 0 0 0 30px
+    li
+      position: relative
+      margin: 0 0 0.35em 0
+      padding: 0
+  pre
+    white-space: pre-wrap
+    word-wrap: break-word
+    -moz-tab-size: 4
+    -o-tab-size: 4
+    -webkit-tab-size: 4
+    tab-size: 4
+
+  span[lang]
+    font-style: italic
+
+  blockquote
+    font-size: inherit
+    font-style: italic
+    padding-left: 20px
+    padding-right: 8px
+    margin: 0
+    border: 0
+    border-left: 5px solid #ccc
+    color: #5e35b1
+    blockquote
+      border-color: #00bcd4
+      color: #00bcd4
+      blockquote
+        border-color: #43a047
+        color: #43a047
+  a
+    &.fr-strong
+      font-weight: 700
+    &.fr-green
+      color: green
+
+  table
+    border: none
+    border-collapse: collapse
+    empty-cells: show
+    max-width: 100%
+    td, th
+      border: 1px solid #dddddd
+      &:empty
+        height: 20px
+      &.fr-highlighted
+        border-color: red
+      &.fr-thick
+        border-width: 2px
+  hr
+    clear: both
+    +user-select(none)
+
+  img
+    max-width: 100%
+    max-height: 100%
+    height: 100%
+    z-index: 3
+    position: relative
+    overflow: auto
+    cursor: pointer
+    line-height: 0
+    &.fr-dib
+      float: none
+      vertical-align: top
+      margin: 5px auto
+      &.fr-fil
+        margin: 5px auto 5px 0
+        left: 5px
+      &.fr-fir
+        margin: 5px 0 5px auto
+        right: 5px
+      &.fr-fil, &.fr-fir
+        +mobile
+          margin: 5px auto
+          right: 0
+          left: 0
+          +clearfix
+    &.fr-dii
+      margin: auto
+      float: none
+      margin-top: 5px
+      margin-bottom: 5px
+      left: 0
+      right: 0
+      +mobile
+        display: block
+      &.fr-fil
+        margin: 5px 10px 5px 0
+        left: 5px
+        float: left
+      &.fr-fir
+        margin: 5px 0 5px 10px
+        right: 5px
+        float: right
+      &.fr-fil, &.fr-fir
+        +mobile
+          float: none
+          margin: 5px auto
+          left: 0
+          right: 0
+          +clearfix
+    &.fr-rounded
+      +border-radius(100%)
+      +background-clip(padding-box)
+    &.fr-bordered
+      border: solid 10px #CCC
+
+  figure
+    text-align: center
+    display: block
+    margin: 0 auto
+    overflow: auto
+    position: relative
+    float: none
+    &.fr-dii
+      +mobile
+        display: block
+        +clearfix
+      &.fr-fil
+        float: left
+      &.fr-fir
+        float: right
+      &.fr-fil, &.fr-fir
+        +mobile
+          float: none
+    > figcaption
+      font-size: 14px
+      font-weight: normal
+      font-style: normal
+      width: auto
+      max-width: 100%
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      text-align: center
+      display: block
+      color: #F5F7FA
+      background: rgba(67, 74, 84, 0.75)
+      float: none
+      vertical-align: top
+      z-index: 3
+      cursor: pointer
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 0
+      top: 0
+      padding: 10px 20px
+      height: 40px
+      +calc(height, "1em + 26px")
+      margin: auto
+      margin-bottom: 5px
+      &.fr-fil
+        left: 5px
+        margin-left: 0
+      &.fr-fir
+        right: 0
+        margin-right: 0
+      &.fr-fil, &.fr-fir
+        +mobile
+          left: 0
+          right: 0
+          margin: auto
+          margin-bottom: 5px
+
+  span.fr-emoticon
+    font-weight: normal
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols"
+    display: inline
+    line-height: 0
+  .fr-video
+    text-align: center
+    position: relative
+    > *
+      +box-sizing(content-box)
+      max-width: 100%
+      border: none
+    &.fr-dvb
+      display: block
+      clear: both
+      &.fr-fvl
+        text-align: left
+      &.fr-fvr
+        text-align: right
+    &.fr-dvi
+      display: inline-block
+      &.fr-fvl
+        float: left
+      &.fr-fvr
+        float: right
