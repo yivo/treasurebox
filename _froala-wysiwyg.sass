@@ -40,7 +40,7 @@
     margin: 1.67em 0
   h1, h2, h3, h4, h5, h6
     font-family: inherit
-    font-weight: 700
+    font-weight: normal
     line-height: 1.1
     color: inherit
     &:first-child
@@ -52,22 +52,22 @@
     font-style: italic
   b, strong
     font-weight: bold
-  blockquote, p, ul, ol
+  blockquote, p, ul, ol, dl
     margin: 0 0 1em 0
     padding: 0
     &:empty
       display: none
   p, h5, h6
-    + ul, + ol
+    + ul, + ol, + dl
       margin-top: -0.35em
   h1, h2, h3, h4
-    + ul, + ol
+    + ul, + ol, + dl
       margin-top: -0.7em
   ol
     list-style-type: decimal
   ul
     list-style-type: disc
-  ol, ul
+  ol, ul, dl
     padding: 0 0 0 30px
     li
       position: relative
@@ -121,6 +121,16 @@
   hr
     clear: both
     +user-select(none)
+
+  @media print
+    h1, h2, h3, h4, ul, table, img, blockquote, figure, figcaption, pre
+      page-break-inside: avoid
+    h1
+      page-break-before: always
+    h1, h2, h3, h4, h5, h6
+      page-break-after: avoid
+    ul, ol, dl
+      page-break-before: avoid
 
   img
     max-width: 100%
