@@ -10,6 +10,15 @@
   margin: 0
   page-break-inside: auto
   white-space: normal
+
+  // https://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/
+  /* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
+  -ms-word-break: break-all
+  word-break: break-all
+  /* Non standard for webkit */
+  word-break: break-word
+  +hyphens(auto)
+
   background: inherit
   .fr-dib
     display: block
@@ -212,8 +221,8 @@
       width: auto
       max-width: 100%
       overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
+      text-overflow: initial
+      white-space: normal
       text-align: center
       display: block
       color: #F5F7FA
@@ -226,10 +235,9 @@
       left: 0
       right: 0
       bottom: 0
-      top: 0
+      top: auto
       padding: 10px 20px
-      height: 40px
-      +calc(height, "1em + 26px")
+      height: auto
       margin: auto
       margin-bottom: 5px
       &.fr-fil
