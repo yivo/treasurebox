@@ -20,6 +20,7 @@
   +hyphens(auto)
 
   background: inherit
+  +clearfix
   .fr-dib
     display: block
   .fr-dii
@@ -61,6 +62,13 @@
     font-style: italic
   b, strong
     font-weight: bold
+  sup
+    top: -0.5em
+  sub, sup
+    font-size: 75%
+    line-height: 0
+    position: relative
+    vertical-align: baseline
   blockquote, p, ul, ol, dl
     margin: 0 0 1em 0
     padding: 0
@@ -120,7 +128,7 @@
     empty-cells: show
     max-width: 100%
     td, th
-      padding: 9px 25px 9px 18px
+      padding: 10px 8px
       border: 1px solid #dddddd
       &:empty
         height: 20px
@@ -196,6 +204,8 @@
       +background-clip(padding-box)
     &.fr-bordered
       border: solid 10px #CCC
+    +mobile
+      height: auto !important // Added !important here to override inline styles
 
   figure
     text-align: center
