@@ -1,27 +1,49 @@
+// https://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/
+// https://gist.github.com/darryl-snow/3838120
+=word-wrap
+  // Not standard CSS3 properties
+  -ms-word-wrap: break-word
+  word-wrap: break-word
+  word-wrap: break-word
+
+  // Warning: Needed for oldIE support, but words are broken up letter-by-letter
+  -ms-word-break: break-all
+  word-break: break-all
+
+  // Non standard for webkit
+  word-break: break-word
+
+  // new name as per the CSS3 spec
+  overflow-wrap: break-word
+
+  -webkit-hyphens: auto
+  -moz-hyphens: auto
+  hyphens: auto
+
+// Values: none (default), auto, 100%
+// https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust
+=text-size-adjust($value: none)
+  -webkit-text-size-adjust: $value
+  -moz-text-size-adjust: $value
+  -ms-text-size-adjust: $value
+
 .wysiwyg
+  width: 100%
   font-family: inherit
   font-style: normal
   font-weight: normal
   //line-height: 20/14
   font-size: 1rem
   color: inherit
-  -ms-text-size-adjust: 100%
-  -webkit-text-size-adjust: 100%
   margin: 0
   padding: 0
   page-break-inside: auto
   white-space: normal
-
-  // https://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/
-  /* Warning: Needed for oldIE support, but words are broken up letter-by-letter */
-  -ms-word-break: break-all
-  word-break: break-all
-  /* Non standard for webkit */
-  word-break: break-word
-  +hyphens(auto)
-
   background: inherit
+  +text-size-adjust(100%)
+  +word-wrap
   +clearfix
+
   .fr-dib
     display: block
   .fr-dii
@@ -31,6 +53,7 @@
     &:after
       position: relative
       content: "\1F4CE"
+
   h1
     font-size: 2em
     margin: .67em 0
@@ -51,7 +74,7 @@
     margin: 1.67em 0
   h1, h2, h3, h4, h5, h6
     font-family: inherit
-    font-weight: 700
+    font-weight: 500
     line-height: 1.1
     color: inherit
     &:first-child
