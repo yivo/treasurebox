@@ -7,7 +7,7 @@
     -webkit-font-smoothing: $value
     -moz-osx-font-smoothing: auto
 
-=font-size($size)
+=font-size($size, $base-size: $trb-font-size-base)
   $size: strip-unit($size)
   font-size: $size * 1px
-  font-size: ($size / strip-unit($trb-font-base-size)) * 1rem
+  font-size: ($size / strip-unit($base-size)) * 1rem
