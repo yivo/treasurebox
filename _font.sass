@@ -7,10 +7,7 @@
     -webkit-font-smoothing: $value
     -moz-osx-font-smoothing: auto
 
-@function convert-to-rem($px_size)
-  $rem_size: $px_size / $trb-font-base-size
-  @return $rem_size * 1rem
-
-=font-rem-size($size)
-  font-size: $size
-  font-size: convert-to-rem($size)
+=font-size($size)
+  $size: strip-unit($size)
+  font-size: $size * 1px
+  font-size: ($size / strip-unit($trb-font-base-size)) * 1rem

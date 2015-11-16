@@ -27,13 +27,19 @@
   -moz-text-size-adjust: $value
   -ms-text-size-adjust: $value
 
+$trb-froala-wysiwyg-font-size: $trb-font-base-size !default
+$trb-froala-wysiwyg-min-font-size: 8px !default
+$trb-froala-wysiwyg-max-font-size: 96px !default
+$trb-froala-wysiwyg-text-styles: gray bordered spaced uppercase light !default
+$trb-froala-wysiwyg-header-font-weight: 600 !default
+
 .wysiwyg
   width: 100%
   font-family: inherit
   font-style: normal
   font-weight: normal
   //line-height: 20/14
-  font-size: 1rem
+  font-size: +font-size($trb-froala-wysiwyg-font-size)
   color: inherit
   margin: 0
   padding: 0
@@ -74,7 +80,7 @@
     margin: 1.67em 0
   h1, h2, h3, h4, h5, h6
     font-family: inherit
-    font-weight: 600
+    font-weight: $trb-froala-wysiwyg-header-font-weight
     line-height: 1.1
     color: inherit
     &:first-child
@@ -314,3 +320,16 @@
         float: left
       &.fr-fvr
         float: right
+
+  $text-styles: $trb-froala-wysiwyg-text-styles
+  @each $text-style in $text-styles
+    .fr-text-#{$text-style}
+      @extend .text-#{$text-style}
+
+  $min-font-size: $trb-froala-wysiwyg-min-font-size
+  $font-size: $min-font-size
+  $max-font-size: $trb-froala-wysiwyg-max-font-size
+  @while $font-size <= $max-font-size
+    .fr-text-#{strip-unit($font-size)}
+      +font-size($font-size)
+    $font-size: $font-size + 2

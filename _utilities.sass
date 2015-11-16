@@ -2,5 +2,8 @@
   #{$property}: -webkit-calc(#{$value})
   #{$property}: calc(#{$value})
 
+@function strip-unit($n)
+  @return $n / ($n * 0 + 1)
+
 .borderless
   border: none !important
