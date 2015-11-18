@@ -9,7 +9,9 @@
         var head = document.getElementsByTagName('head')[0];
         var style = document.createElement('style');
         style.setAttribute('type', 'text/css');
-        style.innerHTML = 'div,p,h1,h2,h3,h4,h5,h6,section,header,footer,ul,ol,dl,pre,blockquote{background-image: url(data:image/gif;base64R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==);}';
+        style.innerHTML = 'div,p,h1,h2,h3,h4,h5,h6,section,header,footer,ul,ol,dl,pre,blockquote{' +
+            'background-image: url(data:image/gif;base64R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==);' +
+            'background-repeat: repeat;}';
         head.appendChild(style);
     }
 })();

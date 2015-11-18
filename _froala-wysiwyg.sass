@@ -1,9 +1,8 @@
 // https://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/
 // https://gist.github.com/darryl-snow/3838120
 =word-wrap
-  // Not standard CSS3 properties
+  // Not standard CSS3 properties (by IE)
   -ms-word-wrap: break-word
-  word-wrap: break-word
   word-wrap: break-word
 
   // Warning: Needed for oldIE support, but words are broken up letter-by-letter
@@ -19,6 +18,14 @@
   -webkit-hyphens: auto
   -moz-hyphens: auto
   hyphens: auto
+
+  white-space: pre /* CSS2 */
+  white-space: -moz-pre-wrap /* Mozilla */
+  white-space: -hp-pre-wrap /* HP printers */
+  white-space: -o-pre-wrap /* Opera 7 */
+  white-space: -pre-wrap /* Opera 4-6 */
+  white-space: pre-wrap /* CSS 2.1 */
+  white-space: pre-line /* CSS 3 (and 2.1 as well, actually) */
 
 // Values: none (default), auto, 100%
 // https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust
