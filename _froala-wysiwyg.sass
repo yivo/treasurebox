@@ -235,61 +235,57 @@
     overflow: auto
     cursor: pointer
     line-height: 0
+    margin: auto
+    +transition(opacity 0.2s)
+    &.fr-loading
+      +opacity(0)
+    &.fr-loaded
+      +opacity(1)
     &.fr-dib
       float: none
       vertical-align: top
-      margin: 5px auto
-      &.fr-fil
-        margin: 5px auto 5px 0
-        left: 5px
-      &.fr-fir
-        margin: 5px 0 5px auto
-        right: 5px
       &.fr-fil, &.fr-fir
         +mobile
-          margin: 5px auto
-          right: 0
-          left: 0
           +clearfix
     &.fr-dii
-      margin: auto
       float: none
-      margin-top: 5px
-      margin-bottom: 5px
-      left: 0
-      right: 0
       +mobile
         display: block
       &.fr-fil
-        margin: 5px 10px 5px 0
-        left: 5px
         float: left
       &.fr-fir
-        margin: 5px 0 5px 10px
-        right: 5px
         float: right
       &.fr-fil, &.fr-fir
         +mobile
           float: none
-          margin: 5px auto
-          left: 0
-          right: 0
           +clearfix
     &.fr-rounded
       +border-radius(100%)
       +background-clip(padding-box)
     &.fr-bordered
       border: solid 10px #CCC
+    &.fr-drag
+      margin-top: 5px // When image being drag
     +mobile
       height: auto !important // Added !important here to override inline styles
 
-  figure
+  .fr-photo
     text-align: center
     display: block
     margin: 0 auto
     overflow: auto
     position: relative
     float: none
+    img
+      +transition(opacity 0.2s)
+    &.fr-loading
+      img
+        +opacity(0)
+    &.fr-loaded
+      img
+        +opacity(1)
+      figure
+        background-color: transparent !important // Override inline styles
     &.fr-dii
       +mobile
         display: block
@@ -301,44 +297,89 @@
       &.fr-fil, &.fr-fir
         +mobile
           float: none
-    > figcaption
-      font-size: 14px
-      font-weight: normal
-      font-style: normal
+    figure
+      background: #ccc
       width: auto
       max-width: 100%
-      overflow: hidden
-      text-overflow: initial
-      white-space: normal
-      text-align: center
       display: block
-      color: #F5F7FA
-      background: rgba(67, 74, 84, 0.75)
       float: none
-      vertical-align: top
       z-index: 3
-      cursor: pointer
-      position: absolute
-      left: 0
-      right: 0
-      bottom: 0
-      top: auto
-      padding: 10px 20px
       height: auto
-      margin: auto
-      margin-bottom: 5px
-      &.fr-fil
-        left: 5px
-        margin-left: 0
-      &.fr-fir
+      position: relative
+      overflow: auto
+      cursor: pointer
+      margin: 0
+      &.fr-dib
+        float: none
+        vertical-align: top
+        margin: 5px auto
+        &.fr-fil
+          margin: 5px auto 5px 0
+          left: 5px
+        &.fr-fir
+          margin: 5px 0 5px auto
+          right: 5px
+        &.fr-fil, &.fr-fir
+          +mobile
+            margin: 5px auto
+            right: 0
+            left: 0
+            +clearfix
+      &.fr-dii
+        margin: 5px auto 5px auto
+        float: none
+        left: 0
         right: 0
-        margin-right: 0
-      &.fr-fil, &.fr-fir
         +mobile
-          left: 0
-          right: 0
-          margin: auto
-          margin-bottom: 5px
+          display: block
+        &.fr-fil
+          margin: 5px 10px 5px 0
+          left: 5px
+          float: left
+        &.fr-fir
+          margin: 5px 0 5px 10px
+          right: 5px
+          float: right
+        &.fr-fil, &.fr-fir
+          +mobile
+            float: none
+            margin: 5px auto
+            left: 0
+            right: 0
+            +clearfix
+      &.fr-rounded
+        +border-radius(100%)
+        +background-clip(padding-box)
+      &.fr-bordered
+        border: solid 10px #CCC
+      +mobile
+        height: auto !important // Added !important here to override inline styles
+
+      figcaption
+        font-size: 14px
+        font-weight: normal
+        font-style: normal
+        width: 100%
+        max-width: 100%
+        overflow: hidden
+        text-overflow: initial
+        white-space: normal
+        text-align: center
+        display: block
+        color: #F5F7FA
+        background: rgba(67, 74, 84, 0.75)
+        float: none
+        vertical-align: top
+        z-index: 3
+        cursor: pointer
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 0
+        top: auto
+        padding: 10px 20px
+        height: auto
+        margin: 0
 
   span.fr-emoticon
     font-weight: normal
