@@ -236,7 +236,7 @@
     cursor: pointer
     line-height: 0
     margin: auto
-    +transition(opacity 0.2s)
+    //+transition(opacity 0.2s)
     &.fr-loading
       +opacity(0)
     &.fr-loaded
@@ -244,9 +244,6 @@
     &.fr-dib
       float: none
       vertical-align: top
-      &.fr-fil, &.fr-fir
-        +mobile
-          +clearfix
     &.fr-dii
       float: none
       +mobile
@@ -258,7 +255,6 @@
       &.fr-fil, &.fr-fir
         +mobile
           float: none
-          +clearfix
     &.fr-rounded
       +border-radius(100%)
       +background-clip(padding-box)
@@ -289,16 +285,17 @@
     &.fr-dii
       font-size: 0
       display: inline-block
-      +mobile
-        display: block
-        +clearfix
       &.fr-fil
         float: left
       &.fr-fir
         float: right
-      &.fr-fil, &.fr-fir
-        +mobile
-          float: none
+    &, &.fr-dii, &.fr-dii.fr-fir, &.fr-dii.fr-fil,
+    &.fr-dib, &.fr-dib.fr-fir, &.fr-dib.fr-fil
+      +mobile
+        float: none
+        display: block
+        +clearfix
+
   figure
     width: auto
     max-width: 100%
@@ -325,7 +322,6 @@
           margin: 5px auto
           right: 0
           left: 0
-          +clearfix
     &.fr-dii
       display: inline-block
       font-size: 0
@@ -349,7 +345,6 @@
           margin: 5px auto
           left: 0
           right: 0
-          +clearfix
     &.fr-rounded
       +border-radius(100%)
       +background-clip(padding-box)
