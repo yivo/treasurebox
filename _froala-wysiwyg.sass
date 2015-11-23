@@ -226,16 +226,44 @@
     ul, ol, dl
       page-break-before: avoid
 
+  .fr-photo
+    text-align: center
+    display: block
+    margin: 0 auto
+    overflow: auto
+    position: relative
+    float: none
+    // 1, 2: For future use
+    &.fr-loading // 1
+    &.fr-loaded // 2
+    &.fr-dii
+      font-size: 0
+      display: inline-block
+      &.fr-fil
+        float: left
+      &.fr-fir
+        float: right
+    &, &.fr-dii, &.fr-dii.fr-fir, &.fr-dii.fr-fil,
+    &.fr-dib, &.fr-dib.fr-fir, &.fr-dib.fr-fil
+      +mobile
+        float: none
+        display: block
+        +clearfix
+
   img
     max-width: 100%
     max-height: 100%
     height: 100%
     z-index: 3
-    position: relative
     overflow: auto
     cursor: pointer
     line-height: 0
     margin: auto
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
     &.fr-loading
       +opacity(0)
     &.fr-loaded
@@ -261,37 +289,6 @@
       border: solid 10px #CCC
     &.fr-drag // This class is added while photo being drag
       margin-top: 5px
-    +mobile
-      height: auto !important // Added !important here to override inline styles
-
-  .fr-photo
-    text-align: center
-    display: block
-    margin: 0 auto
-    overflow: auto
-    position: relative
-    float: none
-    &.fr-loading
-      img
-        +opacity(0)
-    &.fr-loaded
-      img
-        +opacity(1)
-      figure
-        background-color: transparent !important // Override inline styles
-    &.fr-dii
-      font-size: 0
-      display: inline-block
-      &.fr-fil
-        float: left
-      &.fr-fir
-        float: right
-    &, &.fr-dii, &.fr-dii.fr-fir, &.fr-dii.fr-fil,
-    &.fr-dib, &.fr-dib.fr-fir, &.fr-dib.fr-fil
-      +mobile
-        float: none
-        display: block
-        +clearfix
 
   figure
     width: auto
@@ -347,14 +344,12 @@
       +background-clip(padding-box)
     &.fr-bordered
       border: solid 10px #CCC
-    +mobile
-      height: auto !important // Added !important here to override inline styles
 
   figcaption
     font-size: 14px
     font-weight: normal
     font-style: normal
-    width: 100%
+    width: auto
     max-width: 100%
     overflow: hidden
     text-overflow: initial
