@@ -16,21 +16,21 @@
 // https://gist.github.com/darryl-snow/3838120
 =word-wrap
   // Not standard CSS3 properties (by IE)
-  -ms-word-wrap: break-word
-  word-wrap: break-word
+  -ms-word-wrap: normal
+  word-wrap: normal
+
+  // New name as per the CSS3 spec
+  // http://stackoverflow.com/questions/1795109/what-is-the-difference-between-word-break-break-all-versus-word-wrap-break
+  overflow-wrap: normal
 
   // Warning: Needed for oldIE support, but words are broken up letter-by-letter
-  -ms-word-break: break-all
-  word-break: break-all
+  -ms-word-break: normal
+  word-break: normal
 
-  // Non standard for webkit
-  word-break: break-word
-
-  // new name as per the CSS3 spec
-  overflow-wrap: break-word
-
+  // Chrome doesn't support auto
   -webkit-hyphens: auto
   -moz-hyphens: auto
+  -ms-hyphens: auto
   hyphens: auto
 
   white-space: pre /* CSS2 */
