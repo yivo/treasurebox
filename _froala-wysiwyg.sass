@@ -1,8 +1,9 @@
+//https://www.froala.com/design-framework/docs/typography
 .wysiwyg
   width: 100%
-  font-family: inherit
-  font-style: normal
-  font-weight: normal
+  font-family: $trb-froala-wysiwyg-font-family
+  font-style: $trb-froala-wysiwyg-font-style
+  font-weight: $trb-froala-wysiwyg-font-weight
   line-height: $trb-froala-wysiwyg-line-height
   +font-size($trb-froala-wysiwyg-font-size-base)
   color: inherit
@@ -129,12 +130,16 @@
     border-collapse: collapse
     empty-cells: show
     max-width: 100%
+    border-spacing: 0
     tr
       +user-select(none)
     th
       font-weight: bold
       background: #e6e6e6
     td, th
+      text-align: left
+      font-weight: inherit
+      vertical-align: middle
       padding: 10px 8px
       border: 1px solid #ddd
       +user-select(text)
@@ -144,10 +149,14 @@
         border-color: 1px double red
       &.fr-thick
         border-width: 2px
-      &.fr-dashed-borders
-        border-style: dashed
       p
         margin: 0
+    &.fr-dashed-borders
+      td, th
+        border-style: dashed
+    &.fr-borderless
+      td, th
+        border: none
     &.fr-alternate-rows
       tbody tr:nth-child(2n)
         background: #f5f5f5
@@ -366,9 +375,17 @@
       @extend .text-#{$text-style}
 
   $min-font-size: $trb-froala-wysiwyg-min-font-size
-  $font-size: $min-font-size
+  $font-size:     $min-font-size
   $max-font-size: $trb-froala-wysiwyg-max-font-size
   @while $font-size <= $max-font-size
-    .fr-text-#{strip-unit($font-size)}
-      +font-size($font-size)
+    .fr-font-size-#{strip-unit($font-size)}
+      +font-size($font-size, $trb-froala-wysiwyg-font-size-base)
     $font-size: $font-size + 1
+
+  $min-font-weight: $trb-froala-wysiwyg-min-font-weight
+  $font-weight:     $min-font-weight
+  $max-font-weight: $trb-froala-wysiwyg-max-font-weight
+  @while $font-weight <= $max-font-weight
+    .fr-font-weight-#{$font-weight}
+      font-weight: $font-weight
+    $font-weight: $font-weight + 100
