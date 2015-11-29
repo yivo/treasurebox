@@ -157,6 +157,9 @@ select::-ms-expand
   // Get rid of drop-down arrow
   display: none
 
+select option
+  border: 0
+
 // For Firefox
 @-moz-document url-prefix() 
   input,
@@ -172,11 +175,17 @@ select::-ms-expand
 
     // Kill phantom spacing and dotted
     // border that appears in Firefox.
-    &::-moz-focus-inner 
+    // http://stackoverflow.com/questions/18794026/remove-dotted-outline-from-range-input-element-in-firefox
+    &::-moz-focus-inner,
+    &::-moz-focus-outer,
+    &:-moz-focusring
       border: 0
       padding: 0
+      outline: 0
 
   // Get rid of drop-down arrow
+  // https://gist.github.com/joaocunha/6273016/
+  // TODO
   select 
     -moz-appearance: none
     text-indent: 0.01px
