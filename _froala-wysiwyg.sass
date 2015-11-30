@@ -6,7 +6,7 @@
   font-weight: $trb-froala-wysiwyg-font-weight
   line-height: $trb-froala-wysiwyg-line-height
   +font-size($trb-froala-wysiwyg-font-size-base)
-  color: inherit
+  color: $trb-froala-wysiwyg-text-color
   margin: 0
   padding: 0
   page-break-inside: auto
@@ -19,7 +19,7 @@
   .fr-dib
     display: block
   .fr-dii
-    display: inline-block
+    +inline-block
   .fr-file
     position: relative
     &:after
@@ -49,7 +49,7 @@
     font-family: inherit
     font-weight: $trb-froala-wysiwyg-headings-font-weight
     line-height: $trb-froala-wysiwyg-headings-line-height
-    color: inherit
+    color: $trb-froala-wysiwyg-headings-text-color
     &:first-child
       margin-top: 0
   hr
@@ -209,7 +209,7 @@
     &.fr-loaded // 2
     &.fr-dii
       font-size: 0
-      display: inline-block
+      +inline-block
       &.fr-fil
         float: left
       &.fr-fir
@@ -224,7 +224,7 @@
   img
     max-width: 100%
     max-height: 100%
-    height: 100%
+    height: auto
     z-index: 3
     overflow: auto
     cursor: pointer
@@ -289,7 +289,7 @@
           right: 0
           left: 0
     &.fr-dii
-      display: inline-block
+      +inline-block
       font-size: 0
       margin: 5px auto 5px auto
       float: none
@@ -363,7 +363,7 @@
       &.fr-fvr
         text-align: right
     &.fr-dvi
-      display: inline-block
+      +inline-block
       &.fr-fvl
         float: left
       &.fr-fvr
