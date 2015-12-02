@@ -49,7 +49,9 @@ module.createPhotoSwipeGallery = ($photo, $pswp) ->
     $el = $(this)
     if src = ($el.attr('data-url') or $el.attr('src'))
       obj =
+        $el: $el
         src: src
+        msrc: $el.attr('src') or $el.attr('data-resized-url')
         w: $el.attr('data-width') or $el.attr('width') or $el.prop('naturalWidth') or 800
         h: $el.attr('data-height') or $el.attr('height') or $el.prop('naturalHeight') or 600
         title: $el.siblings('figcaption')?.text?() || $el.attr('alt') || $el.attr('data-description')
@@ -72,6 +74,12 @@ module.createPhotoSwipeGallery = ($photo, $pswp) ->
     tapToClose: true
     tapToToggleControls: false
     closeOnScroll: false
+    getThumbBoundsFn: (index) ->
+      $el = descriptors[index]?.$el
+      if $el?[0]
+        pageYScroll = window.pageYOffset or document.documentElement.scrollTop
+        rect = $el[0].getBoundingClientRect()
+        x: rect.left, y: rect.top + pageYScroll, w: rect.width
 
   new PhotoSwipe($pswp[0], PhotoSwipeUI_Default, descriptors, options)
 
