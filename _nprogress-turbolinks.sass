@@ -1,7 +1,15 @@
 #nprogress
   .bar
     background: $trb-nprogress-color
-    @media (max-width: 767px)
-      height: 3px
+    height: $trb-nprogress-bar-height-default
+    +mobile
+      height: $trb-nprogress-bar-height-mobile
   .peg
     box-shadow: 0 0 10px $trb-nprogress-color, 0 0 5px $trb-nprogress-color
+
+.non-responsive
+  &.device-mobile #nprogress .bar
+    height: $trb-nprogress-bar-height-mobile * 2
+
+  &.device-tablet #nprogress .bar
+    height: $trb-nprogress-bar-height-tablet * 1.5
