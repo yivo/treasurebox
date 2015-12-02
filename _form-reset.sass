@@ -23,7 +23,7 @@ input[type="image"]
   background: none
   border: 0
   cursor: pointer
-  display: inline-block
+  +inline-block
   overflow: visible
   margin: 0
   outline: 0
@@ -51,8 +51,6 @@ input[type="image"]
   -moz-box-sizing: border-box
   box-sizing: border-box
 
-  // Helvetica Neue present, because it works better
-  // for line-height on buttons than Arial, on OS X.
   font-size: $trb-form-font-size
   font-family: $trb-form-font-stack
 
@@ -92,9 +90,6 @@ input[type="week"]
   text-align: left
   vertical-align: top
   font-size: $trb-form-font-size
-
-  // Leaving out Helvetica Neue, to not throw off size="..."
-  // on inputs. Arial is more reliable, on Windows and OS X.
   font-family: $trb-form-font-stack
 
   // Undo WebKit defaults
@@ -128,11 +123,8 @@ input[disabled],
 select[disabled],
 select[disabled] option,
 select[disabled] optgroup,
-textarea[disabled] 
-  -moz-user-select: -moz-none
-  -webkit-user-select: none
-  -khtml-user-select: none
-  user-select: none
+textarea[disabled]
+  +user-select(none)
   cursor: not-allowed
 
   // Opacity.

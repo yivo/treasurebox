@@ -6,7 +6,7 @@
   @return $n / ($n * 0 + 1)
 
 .borderless
-  border: none !important
+  border: none
 
 =input-placeholder
   &.placeholder
@@ -28,13 +28,18 @@
 =user-select($type: auto)
   user-select: $type
   -o-user-select: $type
+
+  @if $type == none
+    -moz-user-select: -moz-none
+
   -moz-user-select: $type
   -khtml-user-select: $type
   -webkit-user-select: $type
   -ms-user-select: $type
 
-=inline-block
-  display: -moz-inline-stack
-  display: inline-block
-  *zoom: 1
-  *display: inline
+=absolute0000
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
