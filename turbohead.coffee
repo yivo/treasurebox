@@ -3,7 +3,7 @@ firstRun = true
 handleNamedMeta = ($head, attrs) ->
   $meta  = $head.find('meta[name="' + attrs.name + '"]')
   exists = !!$meta[0]
-  if attrs.content?
+  if attrs.content
     $meta = $('<meta/>')  if not exists
     $meta.attr(attrs)
     $head.append($meta)   if not exists
