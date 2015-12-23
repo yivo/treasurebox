@@ -25,6 +25,14 @@ module.startGoogleAnalytics = do ->
     initialized = yes
     return
 
-if html = document.getElementsByTagName('html')?[0]
-  if trackingID = html.getAttribute('data-ga-tracking-id')
+if head = document.getElementsByTagName('head')[0]
+  meta       = head.getElementsByTagName('meta')
+  trackingID = undefined
+
+  for el in meta
+    if el.getAttribute('name') is 'ga:tracking_id'
+      trackingID = el.getAttribute('content')
+      break
+
+  if trackingID
     module.startGoogleAnalytics(trackingID)
