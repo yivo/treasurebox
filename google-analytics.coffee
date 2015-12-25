@@ -1,6 +1,4 @@
-module = @Treasurebox ||= {}
-
-module.startGoogleAnalytics = do ->
+initializeGoogleAnalytics = do ->
   initialized = no
 
   (trackingID) ->
@@ -21,6 +19,7 @@ module.startGoogleAnalytics = do ->
       $(document).on('page:change', pageView)
     else
       pageView()
+      $(document).on('pjax:end', pageView) if $.fn.pjax
 
     initialized = yes
     return
@@ -34,5 +33,4 @@ if head = document.getElementsByTagName('head')[0]
       trackingID = el.getAttribute('content')
       break
 
-  if trackingID
-    module.startGoogleAnalytics(trackingID)
+  initializeGoogleAnalytics(trackingID) if trackingID
