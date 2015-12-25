@@ -12,7 +12,7 @@ initializeGoogleAnalytics = do ->
     ga('create', trackingID, 'auto')
 
     pageView = ->
-      ga('send', 'pageview')
+      ga('send', 'pageview', location.href.split('#')[0])
       return
 
     if Turbolinks?
