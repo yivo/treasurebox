@@ -12,7 +12,7 @@ $.scrollTo = (target, options = {}) ->
     $root.animate(scrollTop: top, speed)
   $el
 
-$(document).on 'page:change', ->
+callback = ->
   if match = location.search?.match?(/scroll=([^&]+)/)
     try history.replaceState({}, document.title, location.pathname)
 
@@ -30,3 +30,8 @@ $(document).on 'page:change', ->
       try $block = $(selector)
       $.scrollTo($block) if $block
     return
+
+if Turbolinks?
+  $(document).on('page:change', callback)
+else
+  $(document).on('ready pjax:end', callback)
