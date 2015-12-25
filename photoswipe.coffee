@@ -46,10 +46,13 @@ createGallery = ($photo, $pswp) ->
   $photos.each ->
     $el = $(this)
     if src = ($el.attr('data-url') or $el.attr('src'))
+      value   = $el.attr('data-photoswipe-no-preshow')
+      preshow = not value? or value in [false, 'false']
+
       obj =
         $el: $el
         src: src
-        msrc: $el.attr('src') or $el.attr('data-resized-url')
+        msrc: if preshow then $el.attr('data-thumb-url') or $el.attr('src')
         w: $el.attr('data-width') or $el.attr('width') or $el.prop('naturalWidth') or 800
         h: $el.attr('data-height') or $el.attr('height') or $el.prop('naturalHeight') or 600
         title: $el.siblings('figcaption')?.text?() || $el.attr('alt') || $el.attr('data-description')
@@ -73,10 +76,10 @@ createGallery = ($photo, $pswp) ->
     tapToToggleControls: false
     closeOnScroll: false
     getThumbBoundsFn: do ->
-      attr   = $scope.data('no-photoswipe-thumb-animation')
-      noAnim = attr == '' or !!attr
+      value = $scope.attr('data-photoswipe-no-thumb-animation')
+      anim  = not value? or value in [false, 'false']
 
-      if noAnim == false
+      if anim
         (index) ->
           $el = descriptors[index]?.$el
           if $el?[0]
