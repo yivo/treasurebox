@@ -1,6 +1,4 @@
-module = @Treasurebox ||= {}
-
-module.photoSwipeTemplate =
+galleryTemplate =
   '<div aria-hidden="true" id="pswp" class="pswp" role="dialog" tabindex="-1">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
@@ -36,7 +34,7 @@ module.photoSwipeTemplate =
     </div>
   </div>'
 
-module.createPhotoSwipeGallery = ($photo, $pswp) ->
+createGallery = ($photo, $pswp) ->
   $scope  = $photo.parents('.js-photoswipe-scope')
   $photos = $scope.find('img:not([data-no-photoswipe])')
 
@@ -85,15 +83,16 @@ module.createPhotoSwipeGallery = ($photo, $pswp) ->
 
 $pswp = null
 
+callback = ->
+  $('#pswp').remove()
+  $('body').append(galleryTemplate)
+  $pswp = $('#pswp')
+  return
+
 if Turbolinks?
-  $(document).on 'page:change', ->
-    $('#pswp').remove()
-    $('body').append(module.photoSwipeTemplate?() or module.photoSwipeTemplate)
-    $pswp = $('#pswp')
+  $(document).on 'page:change', callback
 else
-  $ ->
-    $('body').append(module.photoSwipeTemplate?() or module.photoSwipeTemplate)
-    $pswp = $('#pswp')
+  $(document).on 'ready pjax:end', callback
 
 $ ->
   $(document).on 'click', [
@@ -103,9 +102,9 @@ $ ->
     $el = $(e.currentTarget)
     if $el.prop('tagName').toLowerCase() != 'img'
       $el = $el.find('img:not([data-no-photoswipe])')
-    module.createPhotoSwipeGallery($el, $pswp)?.init()
+    createGallery($el, $pswp)?.init()
     return
 
   $(document).on 'click', '.js-wysiwyg figure', (e) ->
-    module.createPhotoSwipeGallery($(e.currentTarget).find('img'), $pswp)?.init()
+    createGallery($(e.currentTarget).find('img'), $pswp)?.init()
     return
