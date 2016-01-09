@@ -164,9 +164,10 @@
       margin: 0 auto
       thead
         display: none
+      tr, td
+        display: block
+        width: 100% !important // Override inline styles
       tr
-        &, td
-          display: block
         &:first-child td:first-child
           border-top: 1px solid #ddd
         &:last-child td:last-child
@@ -182,6 +183,9 @@
           border-top: none
         &:last-child
           border-bottom: 2px solid #383838
+        ul, ol, dl
+          text-align: left
+
   hr
     clear: both
     page-break-after: always
