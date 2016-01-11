@@ -1,15 +1,20 @@
 #nprogress
   .bar
-    background: $trb-nprogress-color
-    height: $trb-nprogress-bar-height-default
-    +mobile
-      height: $trb-nprogress-bar-height-mobile
+    background: $nprogress-color
+    height: $nprogress-bar-height-default
   .peg
-    box-shadow: 0 0 10px $trb-nprogress-color, 0 0 5px $trb-nprogress-color
+    box-shadow: 0 0 10px $nprogress-color, 0 0 5px $nprogress-color
 
-.non-responsive
-  &.device-mobile #nprogress .bar
-    height: $trb-nprogress-bar-height-mobile * 2
+html
+  &.responsive
+    #nprogress
+      .bar
+        +phone
+          height: $nprogress-bar-height-phone
 
-  &.device-tablet #nprogress .bar
-    height: $trb-nprogress-bar-height-tablet * 1.5
+  &.non-responsive
+    &.device-phone #nprogress .bar
+      height: $nprogress-bar-height-phone * 2
+  
+    &.device-tablet #nprogress .bar
+      height: $nprogress-bar-height-tablet * 1.5
