@@ -8,12 +8,13 @@
     -moz-osx-font-smoothing: auto
 
 =font-size($size, $base-size: $trb-font-size-base)
-  $size: strip-unit($size)
-  font-size: $size * 1px
-  font-size: ($size / strip-unit($base-size)) * 1rem
+  +rem(font-size, $size, $base-size)
 
 // https://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/
 // https://gist.github.com/darryl-snow/3838120
+//
+// With Interactive Testing Tool:
+//  http://shpargalkablog.ru/2013/02/word-wrap.html
 =word-wrap
   // Not standard CSS3 properties (by IE)
   -ms-word-wrap: normal
