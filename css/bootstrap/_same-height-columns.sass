@@ -1,0 +1,51 @@
+// Copyright
+// http://www.minimit.com/articles/solutions-tutorials/bootstrap-3-responsive-columns-of-same-height
+
+/* Columns of same height styles */
+
+.row-full-height
+  height: 100%
+
+.col-full-height
+  height: 100%
+  vertical-align: middle
+
+.row-same-height
+  display: table
+  width: 100%
+  /* fix overflow */
+  table-layout: fixed
+
+.col-xs-height
+  display: table-cell
+  float: none !important
+
+// If you are importing this script this means
+// that you are using bootstrap framework.
+// In this case variables below will be defined.
+
+@media (min-width: $screen-sm-min)
+  .col-sm-height
+    display: table-cell
+    float: none !important
+
+@media (min-width: $screen-md-min)
+  .col-md-height
+    display: table-cell
+    float: none !important
+
+@media (min-width: $screen-lg-min)
+  .col-lg-height
+    display: table-cell
+    float: none !important
+
+/* Vertical alignment styles */
+
+.col-top
+  vertical-align: top
+
+.col-middle
+  vertical-align: middle
+
+.col-bottom
+  vertical-align: bottom

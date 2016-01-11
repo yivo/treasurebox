@@ -1,0 +1,11 @@
+=user-select($type: auto)
+  user-select: $type
+  -o-user-select: $type
+
+  @if $type == none
+    -moz-user-select: -moz-none
+
+  -moz-user-select: $type
+  -khtml-user-select: $type
+  -webkit-user-select: $type
+  -ms-user-select: $type
