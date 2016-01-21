@@ -9,6 +9,9 @@ initializeGoogleMaps = ->
   return
 
 if Turbolinks?
-  $(document).on('page:change', initializeGoogleMaps)
+  if Turbolinks.supported
+    $(document).on('page:change', initializeGoogleMaps)
+  else
+    $(initializeGoogleMaps)
 else
   $(document).on('ready pjax:end', initializeGoogleMaps)

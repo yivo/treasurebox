@@ -98,7 +98,10 @@ callback = ->
   return
 
 if Turbolinks?
-  $(document).on 'page:change', callback
+  if Turbolinks.supported
+    $(document).on 'page:change', callback
+  else
+    $(callback)
 else
   $(document).on 'ready pjax:end', callback
 

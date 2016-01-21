@@ -41,7 +41,9 @@ froalaTables = ->
             ].join('')
 
 if Turbolinks?
-  $(document).on 'page:change', froalaTables
-
+  if Turbolinks.supported
+    $(document).on 'page:change', froalaTables
+  else
+    $(froalaTables)
 else
   $(document).on 'ready pjax:end', froalaTables

@@ -16,7 +16,10 @@ initializeGoogleAnalytics = do ->
       return
 
     if Turbolinks?
-      $(document).on('page:change', pageView)
+      if Turbolinks.supported
+        $(document).on('page:change', pageView)
+      else
+        pageView()
     else
       pageView()
       $(document).on('pjax:end', pageView) if $.fn.pjax
