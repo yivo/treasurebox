@@ -11,3 +11,9 @@
   bottom: 0
   left: 0
   right: 0
+
+=min-width($width)
+  // http://stackoverflow.com/questions/3802455/min-width-in-window-resizing
+  min-width: $width       /* Suppose you want minimun width of 1000px */
+  width: auto !important  /* Firefox will set width as auto */
+  width: $width           /* As IE ignores !important it will set width as 1000px; */
