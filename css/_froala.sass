@@ -130,9 +130,6 @@
     border-spacing: 0
     tr
       +user-select(none)
-    th
-      font-weight: bold
-      background: #e6e6e6
     td, th
       text-align: left
       font-weight: inherit
@@ -148,6 +145,13 @@
         border-width: 2px
       p
         margin: 0
+      > .cell-label
+        display: none
+      > .cell-content
+        display: block
+    th
+      font-weight: bold
+      background: #e6e6e6
     &.fr-dashed-borders
       td, th
         border-style: dashed
@@ -172,10 +176,14 @@
       td
         border-bottom: none
         text-align: right
-        &:before
-          content: attr(data-label)
+        > .cell-label, > .cell-content
+          display: block
           float: left
-          padding-right: 20px
+        > .cell-label
+          padding-right: 5%
+          width: 45%
+        > .cell-content
+          width: 55%
         &:first-child
           border-top: none
         &:last-child
