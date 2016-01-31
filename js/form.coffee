@@ -1,104 +1,156 @@
-# TODO Refactor
-$(document).on 'page:change', ->
-  $('.js-form .js-submit-action').click (e) ->
+#  .js-form
+#    form
+#      .js-form-group
+#        .js-form-label
+#        .js-form-input
+#        .js-form-error
+#    .js-form-progress
+#    .js-form-success
+#    .js-form-failure
+#
+#    .js-form-controls
+#      .js-form-action.js-form-submit
+#    .js-form-success-controls
+#    .js-form-failure-controls
+
+$ ->
+  $(document).on 'submit', 'form', (e) ->
+    $form   = $(e.currentTarget)
+    $widget = $form.parents('.js-form')
+    return unless $widget[0]
+
+    $button = $widget.find('.js-form-submit:first')
+    return unless $button[0]
+
     e.preventDefault()
+    submit($button)
+    return
 
+  $(document).on 'click', '.js-form .js-form-submit', (e) ->
+    e.preventDefault()
     $button = $(e.currentTarget)
-    $widget = $button.parents('.js-form')
-    $form   = $widget.find('form')
+    submit($button)
+    return
 
-    return if $widget.data('submitting') or $widget.data('submitted')
+submit = ($button) ->
+  $widget = $button.parents('.js-form')
+  $form   = $widget.find('form')
 
-    $errors   = $widget.find('.js-form-errors')
-    $progress = $widget.find('.js-form-progress')
-    $buttons  = $widget.find('.js-button')
-    data      = {}
-    url       = $form.attr('action')
+  return if not $form[0] or $widget.data('form-progress') or
+                            $widget.data('form-success') or
+                            $widget.data('form-failure')
 
-    $widget.data('submitting', true)
-    originalText = $button.text()
-    progressText = $button.data('progress-text')
-    $button.text(progressText) if progressText
-    textChanged = !!progressText
+  $widget.data('form-progress', true)
 
-    $buttons.prop('disabled', true)
+  $errors   = $widget.find('.js-form-errors')
+  $progress = $widget.find('.js-form-progress')
+  $buttons  = $widget.find('.js-form-action')
+  $controls = $widget.find('.js-form-controls')
+  url       = $form.attr('action')
 
-    for {name, value} in $form.serializeArray()
-      data[name] = value
+  originalText = $button.text()
+  progressText = $button.data('progress-text')
+  $button.text(progressText) if progressText
+  textChanged = !!progressText and originalText != progressText
+  $buttons.prop('disabled', true)
 
-    extraData = $button.data()
-    if extraData
-      for own k, v of extraData
-        data[k.snakeCase()] = v
+  data = {}
+  for own k, v of ($button.data() or {})
+    data[k.replace(/-/g, '_')] = v
+  for {name, value} in $form.serializeArray()
+    data[name] = value
 
-    promise = $.post(url, data, $.noop, 'json')
+  now     = -> Date.now?() or new Date().getTime()
+  started = now()
+  atLeast = (required, callback) ->
+    current = now()
+    passed  = current - started
+    if passed < required
+      setTimeout(callback, required - passed)
+    else
+      callback()
 
-    now = ->
-      Date.now?() or new Date().getTime()
+  reset = ->
+    $widget.removeClass('success failure progress has-errors')
+    $widget.find('.has-errors').removeClass('has-errors')
+    $errors.empty()
+    $widget.find('.js-form-error').remove()
 
-    $progress.fadeIn(300)
+  doneWith = (status) ->
+    $widget.addClass(status)
+    $block = $widget.find(".js-form-#{status}")
+    fadeIn $block, ->
+      $progress.hide().css(opacity: 0)
+      $widget.data('form-failure': no, 'form-success': no, 'form-progress': no)
+      $widget.data("form-#{status}", yes)
+    $controls.hide()
+    fadeIn $widget.find(".js-form-#{status}-controls")
+    $.scrollTo?($block, pad: 65)
 
-    started = now()
+  arrayErrors = (errors) ->
+    for msg in errors.slice(0, 2)
+      try $errors.append('<div class="form-error js-form-error">' + msg + '</div>')
+    return
 
-    promise.done (res) ->
-      atLeast 500, ->
-        $widget.data('submitted', true)
-        $widget.removeClass('has-errors')
-        $widget.find('.has-errors').removeClass('has-errors')
-        $errors.empty()
-        $widget.find('.js-error').remove()
-        $widget.addClass('success')
-        $success = $widget.find('.js-form-success')
-        $success.fadeIn(300)
-        $.scrollTo?($success, pad: 65)
+  objectErrors = (errors) ->
+    for own name, msg of errors
+      $input = try $widget.find('[name="' + name + '"]')
+      continue unless $input?[0]
 
-    promise.fail (res) ->
+      $group = $input.parents('.js-form-group')
+      continue unless $group[0]
+
+      $err = $group.find('.js-form-error')
+      $err = $('<div class="form-error js-form-error"/>') unless $err[0]
+      $err.text(msg)
+      $group.append($err)
+      $group.addClass('has-errors')
+    return
+
+  promise = $.post(url, data, $.noop, 'json')
+  $widget.addClass('progress')
+  fadeIn($progress)
+
+  promise.done (res) ->
+    atLeast 500, ->
+      reset()
+      doneWith('success')
+
+  promise.fail (res) ->
+    atLeast 500, ->
+      reset()
       if errors = res?.responseJSON?.errors
-        $errors.empty()
-        $widget.find('.js-error').remove()
-
         if $.isArray(errors)
-          for msg in res.responseJSON.errors.slice(0, 2)
-            $errors.append $("<label>#{msg}</label>")
-
+          arrayErrors(errors)
         else if typeof errors is 'object'
-          for own name, msg of errors
-            $input = try $widget.find('[name="' + name + '"]')
-            continue unless $input?[0]
+          objectErrors(errors)
 
-            $group = $input.parents('.js-input-group')
-            continue unless $group[0]
-
-            $label = $input.find('label')
-            $label = $('<label/>') unless $label[0]
-            $label.addClass('js-error')
-            $label.text(msg)
-            $group.append($label)
-
-        $widget.addClass('has-error')
+        $widget.addClass('has-errors')
+        fadeOut $progress, -> $widget.data('form-progress', false)
         $.scrollTo?($errors, pad: 65)
-        $progress.fadeOut(300)
 
-      else
-        atLeast 500, ->
-          $widget.data('submitted', true)
-          $widget.removeClass('has-errors')
-          $widget.addClass('failure')
-          $errors.empty()
-          $failure = $widget.find('.js-form-failure')
-          $failure.fadeIn(300)
-          $.scrollTo?($failure, pad: 65)
+      else doneWith('failure')
 
-    atLeast = (ms, callback) ->
-      current = now()
-      passed  = current - started
-
-      if passed < ms
-        setTimeout(callback, ms - passed)
-      else
-        callback()
-
-    promise.always ->
-      $widget.data('submitting', false)
+  promise.always ->
+    atLeast 500, ->
       $button.text(originalText) if textChanged
-      $widget.find('.js-button').prop('disabled', false)
+      $buttons.prop('disabled', false)
+
+fadeIn = ($el, callback) ->
+  $el.show()
+  $el[0]?.offsetWidth if $.support.transition
+  $el.css(opacity: 1)
+  done = ->
+    callback?()
+  if $.support.transition
+    $el.one('transitionEnd', done).emulateTransitionEnd(300)
+  else done()
+
+fadeOut = ($el, callback) ->
+  $el.css(opacity: 0)
+  done = ->
+    $el.hide()
+    callback?()
+  if $.support.transition
+    $el.one('transitionEnd', done).emulateTransitionEnd(300)
+  else done()
