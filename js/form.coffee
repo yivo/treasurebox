@@ -81,7 +81,7 @@ submit = ($button) ->
     $block = $widget.find(".js-form-#{status}")
     fadeIn $block, ->
       $progress.hide().css(opacity: 0)
-      $widget.data('form-failure': no, 'form-success': no, 'form-progress': no)
+      $widget.data(formFailure: no, formSuccess: no, formProgress: no)
       $widget.data("form-#{status}", yes)
     $controls.hide()
     fadeIn $widget.find(".js-form-#{status}-controls")
