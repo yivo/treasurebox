@@ -4,9 +4,10 @@ transitionEnd = ->
   el = document.createElement('div')
 
   transEndEventNames =
-    WebkitTransition: 'webkitTransitionEnd',
-    MozTransition   : 'transitionend',
-    OTransition     : 'oTransitionEnd otransitionend',
+    WebkitTransition: 'webkitTransitionEnd'
+    MozTransition   : 'transitionend'
+    OTransition     : 'oTransitionEnd otransitionend'
+    msTransition    : 'MSTransitionEnd'
     transition      : 'transitionend'
 
   for name of transEndEventNames
