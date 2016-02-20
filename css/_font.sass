@@ -19,7 +19,7 @@
 // https://kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/
 // https://gist.github.com/darryl-snow/3838120
 //
-// With Interactive Testing Tool:
+// Interactive Testing Tool:
 //  http://shpargalkablog.ru/2013/02/word-wrap.html
 =word-wrap
   // Not standard CSS3 properties (by IE)
@@ -40,13 +40,17 @@
   -ms-hyphens: auto
   hyphens: auto
 
-  white-space: pre /* CSS2 */
-  white-space: -moz-pre-wrap /* Mozilla */
-  white-space: -hp-pre-wrap /* HP printers */
-  white-space: -o-pre-wrap /* Opera 7 */
-  white-space: -pre-wrap /* Opera 4-6 */
-  white-space: pre-wrap /* CSS 2.1 */
-  white-space: pre-line /* CSS 3 (and 2.1 as well, actually) */
+  +white-space(normal)
+
+=white-space($type)
+  @if $type == pre-wrap
+    white-space: -moz-pre-wrap /* Mozilla */
+    white-space: -hp-pre-wrap /* HP printers */
+    white-space: -o-pre-wrap /* Opera 7 */
+    white-space: -pre-wrap /* Opera 4-6 */
+    white-space: pre-wrap /* CSS 2.1 */
+  @else
+    white-space: $type
 
 // Values: none (default), auto, 100%
 // https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust
