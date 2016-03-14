@@ -24,7 +24,7 @@
     position: relative
     &:after
       position: relative
-      content: "\1F4CE"
+      content: '\1F4CE'
       font-weight: normal
 
   h1
@@ -54,7 +54,7 @@
       margin-top: 0
   hr
     border: 0
-    border-top: 1px solid #ccc
+    border-top: 1px solid $fr-hr-color
   em
     font-style: italic
   b, strong
@@ -94,6 +94,7 @@
       ol, ul, dl
         margin-bottom: 0.35em
   pre
+    font-family: $font-family-monospace
     white-space: pre-wrap
     word-wrap: break-word
     +tab-size(4)
@@ -108,17 +109,17 @@
     padding-right: 8px
     margin: 0
     border: 0
-    border-left: 5px solid #ccc
-    color: #5e35b1
+    color: $fr-quote-0-text-color
+    border-left: 5px solid $fr-quote-0-border-color
     blockquote
-      border-color: #00bcd4
-      color: #00bcd4
+      color: $fr-quote-1-text-color
+      border-color: $fr-quote-1-border-color
       blockquote
-        border-color: #43a047
-        color: #43a047
+        color: $fr-quote-2-text-color
+        border-color: $fr-quote-2-border-color
   a
     &.fr-strong
-      font-weight: 700
+      font-weight: bold
     &.fr-green
       color: green
 
@@ -130,17 +131,20 @@
     border-spacing: 0
     tr
       +user-select(none)
+    thead > tr
+      background: $fr-table-head-bg-color
     td, th
       text-align: left
       font-weight: inherit
       vertical-align: middle
       padding: 10px 8px
-      border: 1px solid #ddd
+      border: 1px solid $fr-table-cell-border-color
       +user-select(text)
       +blank
         height: 20px
       &.fr-highlighted
-        border-color: 1px double red
+        border-color: red
+        border-style: double
       &.fr-thick
         border-width: 2px
       p
@@ -151,7 +155,6 @@
         display: block
     th
       font-weight: bold
-      background: #e6e6e6
     &.fr-dashed-borders
       td, th
         border-style: dashed
@@ -160,7 +163,7 @@
         border: none
     &.fr-alternate-rows
       tbody tr:nth-child(2n)
-        background: #f5f5f5
+        background: $fr-table-alternate-row-bg-color
     +phone
       margin: 0 auto
       thead
@@ -170,9 +173,9 @@
         width: 100% !important // Override inline styles
       tr
         &:first-child td:first-child
-          border-top: 1px solid #ddd
+          border-top: 1px solid $fr-table-responsive-cell-border-color
         &:last-child td:last-child
-          border-bottom: 1px solid #ddd
+          border-bottom: 1px solid $fr-table-responsive-cell-border-color
       td
         border-bottom: none
         text-align: right
@@ -187,7 +190,7 @@
         &:first-child
           border-top: none
         &:last-child
-          border-bottom: 2px solid #383838
+          border-bottom: 2px solid $fr-table-responsive-row-separator-color
         ul, ol, dl
           text-align: left
 
@@ -262,7 +265,7 @@
       +border-radius(100%)
       +background-clip(padding-box)
     &.fr-bordered
-      border: solid 10px #CCC
+      border: solid 4px $fr-img-bordered-border-color
     &.fr-drag // This class is added while photo being drag
       margin-top: 5px
       height: auto
@@ -316,11 +319,6 @@
           margin: 5px auto
           left: 0
           right: 0
-    &.fr-rounded
-      +border-radius(100%)
-      +background-clip(padding-box)
-    &.fr-bordered
-      border: solid 10px #CCC
 
   figcaption
     font-size: 14px
@@ -333,8 +331,8 @@
     white-space: normal
     text-align: center
     display: block
-    color: #F5F7FA
-    background: rgba(67, 74, 84, 0.75)
+    color: $fr-figcaption-text-color
+    background: $fr-figcaption-bg-color
     float: none
     vertical-align: top
     z-index: 3
@@ -350,7 +348,7 @@
 
   span.fr-emoticon
     font-weight: normal
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols"
+    font-family: $font-family-emoji
     display: inline
     line-height: 0
   .fr-video
@@ -375,12 +373,12 @@
         float: right
 
   .fr-text-gray
-    color: #AAA
+    color: $fr-text-gray-color
 
   .fr-text-bordered
-    border-top: solid 1px #222
-    border-bottom: solid 1px #222
-    padding: 10px 0
+    border-top: solid 1px $fr-text-bordered-border-color
+    border-bottom: solid 1px $fr-text-bordered-border-color
+    padding: 4px 0
 
   .fr-text-spaced
     letter-spacing: 1px
