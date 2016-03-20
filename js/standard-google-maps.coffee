@@ -5,7 +5,7 @@ initializeGoogleMaps = ->
         $map   = $(this)
         center = new google.maps.LatLng($map.data('lat'), $map.data('lng'))
         zoom   = $map.data('zoom') or 17
-        map    = new google.maps.Map(this, {center, zoom, scrollwheel: no, draggable: !isMobile.any})
+        map    = new google.maps.Map(this, {center, zoom, scrollwheel: no, draggable: !isMobile?.any})
         marker = new google.maps.Marker {position: center, map, animation: google.maps.Animation.BOUNCE}
   return
 
