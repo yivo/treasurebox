@@ -93,7 +93,7 @@ submit = ($button) ->
     return
 
   objectErrors = (errors) ->
-    for own name, msg of errors
+    for own name, deepErrors of errors
       $input = try $widget.find('[name="' + name + '"]')
       continue unless $input?[0]
 
@@ -102,7 +102,7 @@ submit = ($button) ->
 
       $err = $group.find('.js-form-error')
       $err = $('<div class="form-error js-form-error"/>') unless $err[0]
-      $err.text(msg)
+      $err.text(deepErrors[0])
       $group.append($err)
       $group.addClass('has-errors')
     return
