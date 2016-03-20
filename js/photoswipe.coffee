@@ -75,17 +75,20 @@ createGallery = ($photo, $pswp) ->
     tapToClose: true
     tapToToggleControls: false
     closeOnScroll: false
-    getThumbBoundsFn: do ->
-      value = $scope.attr('data-photoswipe-no-thumb-animation')
-      anim  = not value? or value in [false, 'false']
+    maxSpreadZoom: 1.2
+    getThumbBoundsFn: (index) ->
+      $el = descriptors[index]?.$el
+      if $el?[0]
+        value = $el.attr('data-photoswipe-no-thumb-animation')
+        anim  = not value? or value in [false, 'false']
+        if anim
+          pageYScroll = window.pageYOffset or document.documentElement.scrollTop
+          rect = $el[0].getBoundingClientRect()
+          x: rect.left, y: rect.top + pageYScroll, w: rect.width
 
-      if anim
-        (index) ->
-          $el = descriptors[index]?.$el
-          if $el?[0]
-            pageYScroll = window.pageYOffset or document.documentElement.scrollTop
-            rect = $el[0].getBoundingClientRect()
-            x: rect.left, y: rect.top + pageYScroll, w: rect.width
+    getDoubleTapZoom: (isMouseClick, item) ->
+      return 0.77 if isMouseClick
+      if item.initialZoomLevel < 0.7 then 1 else 1.33
 
   new PhotoSwipe($pswp[0], PhotoSwipeUI_Default, descriptors, options)
 
