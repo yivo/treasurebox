@@ -7,9 +7,9 @@
 
 =position($top: 0, $right: 0, $bottom: 0, $left: 0)
   top:    $top
-  bottom: $right
-  left:   $bottom
-  right:  $left
+  bottom: $bottom
+  left:   $left
+  right:  $right
 
 =absolute($top: 0, $right: 0, $bottom: 0, $left: 0)
   position: absolute
@@ -28,3 +28,15 @@
 =blank
   &:empty, &:blank, &:-moz-only-whitespace
     @content
+
+=cursor($type)
+  @if $type == grab
+    cursor: grab
+    cursor: -moz-grab
+    cursor: -webkit-grab
+  @else if $type == grabbing
+    cursor: grabbing
+    cursor: -moz-grabbing
+    cursor: -webkit-grabbing
+  @else
+    cursor: $type
