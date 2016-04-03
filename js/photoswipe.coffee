@@ -78,7 +78,7 @@ createGallery = ($photo, $pswp) ->
     maxSpreadZoom: 1.2
     getThumbBoundsFn: (index) ->
       $el = descriptors[index]?.$el
-      if $el?[0]
+      if $el?[0]?
         value = $el.attr('data-photoswipe-no-thumb-animation')
         anim  = not value? or value in [false, 'false']
         if anim
