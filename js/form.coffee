@@ -112,6 +112,7 @@ submit = ($button) ->
   fadeIn($progress)
 
   promise.done (res) ->
+    $widget.trigger('form:submit')
     atLeast 500, ->
       reset()
       doneWith('success')
@@ -119,7 +120,7 @@ submit = ($button) ->
   promise.fail (res) ->
     atLeast 500, ->
       reset()
-      if errors = res?.responseJSON?.errors
+      if (errors = res?.responseJSON?.errors)?
         if $.isArray(errors)
           arrayErrors(errors)
         else if typeof errors is 'object'

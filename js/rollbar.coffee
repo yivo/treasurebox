@@ -1,4 +1,4 @@
-initializeRollbar = do ->
+initialize = do ->
   initialized = no
 
   (accessToken) ->
@@ -18,7 +18,7 @@ initializeRollbar = do ->
     initialized = yes
     return
 
-if head = document.getElementsByTagName('head')[0]
+if (head = document.getElementsByTagName('head')[0])?
   meta        = head.getElementsByTagName('meta')
   accessToken = undefined
 
@@ -27,4 +27,4 @@ if head = document.getElementsByTagName('head')[0]
       accessToken = el.getAttribute('content')
       break
 
-  initializeRollbar(accessToken) if accessToken
+  initialize(accessToken) if accessToken

@@ -1,4 +1,4 @@
-initializeGoogleAnalytics = do ->
+initialize = do ->
   initialized = no
 
   (trackingID) ->
@@ -12,8 +12,7 @@ initializeGoogleAnalytics = do ->
     ga('create', trackingID, 'auto')
 
     pageView = ->
-      ga('send', 'pageview', location.href.split('#')[0])
-      return
+      ga('send', 'pageview', location.href.split('#')[0]); return
 
     if Turbolinks?
       if Turbolinks.supported
@@ -27,7 +26,7 @@ initializeGoogleAnalytics = do ->
     initialized = yes
     return
 
-if head = document.getElementsByTagName('head')[0]
+if (head = document.getElementsByTagName('head')[0])?
   meta       = head.getElementsByTagName('meta')
   trackingID = undefined
 
@@ -36,4 +35,4 @@ if head = document.getElementsByTagName('head')[0]
       trackingID = el.getAttribute('content')
       break
 
-  initializeGoogleAnalytics(trackingID) if trackingID
+  initialize(trackingID) if trackingID

@@ -21,7 +21,7 @@ module.loadGoogleMapsAPI = do ->
       queue.push(callback)
 
       unless loading
-        if head = document.getElementsByTagName('head')?[0]
+        if (head = document.getElementsByTagName('head')[0])?
           script      = document.createElement('script')
           script.type = 'text/javascript'
           script.src  = "http://maps.googleapis.com/maps/api/js?v=3&callback=#{gmProperty}"

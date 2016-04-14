@@ -1,4 +1,4 @@
-initializeGoogleMaps = ->
+initialize = ->
   if ($maps = $('.js-standard-google-map'))[0]
     Treasurebox.loadGoogleMapsAPI ->
       $maps.each ->
@@ -11,8 +11,8 @@ initializeGoogleMaps = ->
 
 if Turbolinks?
   if Turbolinks.supported
-    $(document).on('page:change', initializeGoogleMaps)
+    $(document).on('page:change', initialize)
   else
-    $(initializeGoogleMaps)
+    $(initialize)
 else
-  $(document).on('ready pjax:end', initializeGoogleMaps)
+  $(document).on('ready pjax:end', initialize)

@@ -14,7 +14,7 @@ initializeJivo = do ->
     initialized = yes
     return
 
-if head = document.getElementsByTagName('head')[0]
+if (head = document.getElementsByTagName('head')[0])?
   meta     = head.getElementsByTagName('meta')
   widgetID = undefined
 
