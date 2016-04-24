@@ -29,7 +29,7 @@ initialize = do ->
         hit()
     else
       hit()
-      $(document).on('pjax:end', hit) if $.fn.pjax
+      $(document).on('pjax:end', hit) if $.fn.pjax?
 
     initialized = yes
     return
@@ -45,4 +45,4 @@ if (head = document.getElementsByTagName('head')[0])?
     else if el.getAttribute('name') is 'yandex_metrika:options'
       try options = JSON.parse(el.getAttribute('content'))
 
-  initialize(counterID, options) if counterID?
+  initialize(counterID, options) if counterID

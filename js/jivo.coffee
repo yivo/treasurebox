@@ -2,7 +2,7 @@ initializeJivo = do ->
   initialized = no
 
   (widgetID) ->
-    return if initialized or not widgetID
+    return if initialized
 
     s       = document.createElement('script')
     s.type  = 'text/javascript'
@@ -16,7 +16,7 @@ initializeJivo = do ->
 
 if (head = document.getElementsByTagName('head')[0])?
   meta     = head.getElementsByTagName('meta')
-  widgetID = undefined
+  widgetID = null
 
   for el in meta
     if el.getAttribute('name') is 'jivo:widget_id'

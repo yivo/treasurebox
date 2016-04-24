@@ -2,7 +2,7 @@ initialize = do ->
   initialized = no
 
   (trackingID) ->
-    return if initialized or not trackingID
+    return if initialized
 
     `(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -21,7 +21,7 @@ initialize = do ->
         pageView()
     else
       pageView()
-      $(document).on('pjax:end', pageView) if $.fn.pjax
+      $(document).on('pjax:end', pageView) if $.fn.pjax?
 
     initialized = yes
     return
