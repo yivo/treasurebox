@@ -23,7 +23,7 @@ input[type="image"]
   +inline-block
   background: none
   border: 0
-  cursor: pointer
+  +cursor(pointer)
   overflow: visible
   margin: 0
   outline: 0
@@ -34,22 +34,16 @@ input[type="image"]
   width: auto
 
   // Undo WebKit defaults
-  -webkit-appearance: none
+  +appearance(none)
 
   // Adjust background display
-  -webkit-background-clip: padding
-  -moz-background-clip: padding
-  background-clip: padding-box
+  +background-clip(padding-box)
 
   // Remove rounded corners
-  -webkit-border-radius: 0
-  -moz-border-radius: 0
-  border-radius: 0
+  +border-radius(0)
 
   // Change box model
-  -webkit-box-sizing: border-box
-  -moz-box-sizing: border-box
-  box-sizing: border-box
+  +box-sizing(border-box)
 
   font-size: inherit
   font-family: inherit
@@ -92,31 +86,27 @@ input[type="week"]
   font-size: inherit
   font-family: inherit
 
-  // Undo WebKit defaults
-  -webkit-appearance: none
-
   // Adjust background display
-  -webkit-background-clip: padding
-  -moz-background-clip: padding
-  background-clip: padding-box
+  +background-clip(padding-box)
 
   // Remove rounded corners
-  -webkit-border-radius: 0
-  -moz-border-radius: 0
-  border-radius: 0
+  +border-radius(0)
 
   // Change box model
-  -webkit-box-sizing: border-box
-  -moz-box-sizing: border-box
-  box-sizing: border-box
+  +box-sizing(border-box)
 
   // Get rid of up/down, plus/minus buttons
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button 
-    -webkit-appearance: none
+  // Undo WebKit defaults
+  &, &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+    +appearance(none)
 
 input[type="hidden"]
   font-size: 0
+
+// Deny selection of placeholder
+textarea, input
+  +input-placeholder
+    +user-select(none)
 
 button[disabled],
 input[disabled],
@@ -125,11 +115,8 @@ select[disabled] option,
 select[disabled] optgroup,
 textarea[disabled]
   +user-select(none)
-  cursor: not-allowed
-
-  // Opacity.
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100)
-  opacity: 1
+  +cursor(not-allowed)
+  +opacity(1)
 
 textarea 
   min-height: 2em
@@ -178,7 +165,8 @@ select option
   // Get rid of drop-down arrow
   // https://gist.github.com/joaocunha/6273016/
   // TODO There is solution. Need to read all comments and write css
-  select 
+  // overflow: -moz-hidden-unscrollable
+  select
     -moz-appearance: none
     text-indent: 0.01px
-    text-overflow: ""
+    text-overflow: ''
