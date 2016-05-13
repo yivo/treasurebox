@@ -4,15 +4,28 @@ initialize = do ->
   (trackingID) ->
     return if initialized
 
-    `(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');`
+    ga = ->
+      args = []
+      len  = arguments.length
+      idx  = -1
+      args.push(arguments[idx]) while ++idx < len
+      (ga.q ?= []).push(args)
+      return
+      
+    ga.l = Date.now?() ? +new Date()
+
+    window.GoogleAnalyticsObject         = 'ga'
+    window[window.GoogleAnalyticsObject] = ga
+
+    script       = document.createElement('script')
+    script.type  = 'text/javascript'
+    script.async = true
+    script.src   = 'https://www.google-analytics.com/analytics.js'
+    document.getElementsByTagName('head')[0]?.appendChild(script)
 
     ga('create', trackingID, 'auto')
 
-    pageView = ->
-      ga('send', 'pageview', location.href.split('#')[0]); return
+    pageView = -> ga('send', 'pageview', location.href.split('#')[0]); return
 
     if Turbolinks?
       if Turbolinks.supported

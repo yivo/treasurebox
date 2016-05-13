@@ -8,17 +8,15 @@ initialize = do ->
     (window.yandex_metrika_callbacks ?= []).push ->
       try metrika = new Ya.Metrika($.extend(id: counterID, options, defer: yes))
 
-    `var n = document.getElementsByTagName("script")[0];
-     var s = document.createElement("script");
-     var f = function() { n.parentNode.insertBefore(s, n); };
-     s.type  = "text/javascript";
-     s.async = true;
-     s.src   = "https://mc.yandex.ru/metrika/watch.js";
-     if (window.opera == "[object Opera]") {
-       d.addEventListener("DOMContentLoaded", f, false);
-     } else {
-       f();
-     }`
+    script       = document.createElement('script')
+    script.type  = 'text/javascript'
+    script.async = true
+    script.src   = 'https://mc.yandex.ru/metrika/watch.js'
+    append       = -> document.getElementsByTagName('head')[0]?.appendChild(script); return
+
+    if window.opera is '[object Opera]'
+      document.addEventListener('DOMContentLoaded', append, false)
+    else fn()
 
     hit = -> metrika?.hit?(location.href.split('#')[0], title: document.title); return
 

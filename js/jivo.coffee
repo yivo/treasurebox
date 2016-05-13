@@ -4,14 +4,12 @@ initializeJivo = do ->
   (widgetID) ->
     return if initialized
 
-    s       = document.createElement('script')
-    s.type  = 'text/javascript'
-    s.async = true
-    s.src   = '//code.jivosite.com/script/widget/' + widgetID
-    ss      = document.getElementsByTagName('script')[0]
-    ss.parentNode.insertBefore(s, ss)
-
-    initialized = yes
+    script       = document.createElement('script')
+    script.type  = 'text/javascript'
+    script.async = true
+    script.src   = 'https://code.jivosite.com/script/widget/' + widgetID
+    document.getElementsByTagName('head')[0]?.appendChild(script)
+    initialized  = yes
     return
 
 if (head = document.getElementsByTagName('head')[0])?
