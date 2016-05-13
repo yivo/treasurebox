@@ -4,7 +4,8 @@
   $font-weight:     normal,
   $font-style:      normal,
   $asset-pipeline:  true,
-  $file-formats:    eot ttf svg woff woff2
+  $file-formats:    eot ttf svg woff woff2,
+  $inline:          false
 ) {
   @font-face {
     font-family:  $font-family;
@@ -27,8 +28,12 @@
       @if index($file-formats, $key) {
         $file-path:   nth($values, 1);
         $font-format: nth($values, 2);
-        @if $asset-pipeline == true {
-          $src: append($src, font-url($file-path) $font-format, comma);
+        @if $asset-pipeline == true{
+          @if $inline == true or (type-of($inline) == string and $inline == $key) or (type-of($inline) == list and index($inline, $key)) {
+            $src: append($src, asset-data-url($file-path) $font-format, comma);
+          } @else {
+            $src: append($src, font-url($file-path) $font-format, comma);
+          }
         } @else {
           $src: append($src, url($file-path) $font-format, comma);
         }
