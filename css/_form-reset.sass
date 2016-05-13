@@ -99,10 +99,12 @@ input[type="week"]
   // Change box model
   +box-sizing(border-box)
 
-  // Get rid of up/down, plus/minus buttons
   // Undo WebKit defaults
-  &, &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
-    +appearance(none)
+  +appearance(none)
+
+  // Get rid of up/down, plus/minus buttons
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+    -webkit-appearance: none
 
 input[type="hidden"]
   font-size: 0
