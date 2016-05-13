@@ -16,7 +16,7 @@ initialize = do ->
 
     if window.opera is '[object Opera]'
       document.addEventListener('DOMContentLoaded', append, false)
-    else fn()
+    else append()
 
     hit = -> metrika?.hit?(location.href.split('#')[0], title: document.title); return
 
