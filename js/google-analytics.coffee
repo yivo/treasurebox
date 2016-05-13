@@ -4,18 +4,16 @@ initialize = do ->
   (trackingID) ->
     return if initialized
 
-    ga = ->
+    window.GoogleAnalyticsObject         = 'ga'
+    window[window.GoogleAnalyticsObject] = ->
       args = []
       len  = arguments.length
       idx  = -1
       args.push(arguments[idx]) while ++idx < len
       (ga.q ?= []).push(args)
       return
-      
-    ga.l = Date.now?() ? +new Date()
 
-    window.GoogleAnalyticsObject         = 'ga'
-    window[window.GoogleAnalyticsObject] = ga
+    ga.l = Date.now?() ? +new Date()
 
     script       = document.createElement('script')
     script.type  = 'text/javascript'
@@ -25,16 +23,16 @@ initialize = do ->
 
     ga('create', trackingID, 'auto')
 
-    pageView = -> ga('send', 'pageview', location.href.split('#')[0]); return
+    pagaview = -> ga('send', 'pageview', location.href.split('#')[0]); return
 
     if Turbolinks?
       if Turbolinks.supported
-        $(document).on('page:change', pageView)
+        $(document).on('page:change', pagaview)
       else
-        pageView()
+        pagaview()
     else
-      pageView()
-      $(document).on('pjax:end', pageView) if $.fn.pjax?
+      pagaview()
+      $(document).on('pjax:end', pagaview) if $.fn.pjax?
 
     initialized = yes
     return
@@ -47,5 +45,7 @@ if (head = document.getElementsByTagName('head')[0])?
     if el.getAttribute('name') is 'ga:tracking_id'
       trackingID = el.getAttribute('content')
       break
+
+  trackingID = '1212'
 
   initialize(trackingID) if trackingID
