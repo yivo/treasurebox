@@ -46,6 +46,4 @@ if (head = document.getElementsByTagName('head')[0])?
       trackingID = el.getAttribute('content')
       break
 
-  trackingID = '1212'
-
   initialize(trackingID) if trackingID
