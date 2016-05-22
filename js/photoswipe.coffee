@@ -34,79 +34,80 @@ galleryTemplate =
     </div>
   </div>'
 
-createGallery = ($photo, $pswp) ->
-  $scope  = $photo.parents('.js-photoswipe-scope')
-  $photos = $scope.find('img:not([data-no-photoswipe])')
+class window.PhotoSwipeGalleryBuilder
+  constructor: ->
+    @pswp = document.getElementById('pswp')
+    unless @pswp?
+      $('body').append(galleryTemplate)
+      @pswp = document.getElementById('pswp')
 
-  # Initializing photoswipe with no images causes errors
-  return unless $photos[0]
+  build: (params) ->
+    {$photos, $photo, $scope} = params
 
-  descriptors = []
+    unless $photos?
+      if $photo?
+        $scope  ?= $photo.parents('.js-photoswipe-scope')
+        $photos  = $scope.find('img:not([data-no-photoswipe])')
 
-  $photos.each ->
-    $el = $(this)
-    if src = ($el.attr('data-url') or $el.attr('src'))
-      value   = $el.attr('data-photoswipe-no-preshow')
-      preshow = not value? or value in [false, 'false']
+      else if $scope?
+        $photos = $scope.find('img:not([data-no-photoswipe])')
+  
+      else
+        throw new Error('Invalid params passed') # TODO Better error
 
-      obj =
-        $el: $el
-        src: src
-        msrc: if preshow then $el.attr('data-thumb-url') or $el.attr('src')
-        w: $el.attr('data-width') or $el.attr('width') or $el.prop('naturalWidth') or 800
-        h: $el.attr('data-height') or $el.attr('height') or $el.prop('naturalHeight') or 600
-        title: $el.siblings('figcaption')?.text?() || $el.attr('alt') || $el.attr('data-description')
-      descriptors.push(obj)
+    # Initializing photoswipe with no images causes errors
+    return unless $photos[0]?
 
-  options =
-    history: false
-    index: $photos.index($photo)
-    mainClass: 'pswp--minimal--dark'
-    barsSize: top: 0, bottom: 0
-    closeEl: true
-    captionEl: true
-    fullscreenEl: true
-    zoomEl: true
-    shareEl: false
-    counterEl: true
-    arrowEl: true
-    preloaderEl: true
-    bgOpacity: 0.85
-    tapToClose: true
-    tapToToggleControls: false
-    closeOnScroll: false
-    maxSpreadZoom: 1.2
-    getThumbBoundsFn: (index) ->
-      $el = descriptors[index]?.$el
-      if $el?[0]?
-        value = $el.attr('data-photoswipe-no-thumb-animation')
-        anim  = not value? or value in [false, 'false']
-        if anim
-          pageYScroll = window.pageYOffset or document.documentElement.scrollTop
-          rect = $el[0].getBoundingClientRect()
-          x: rect.left, y: rect.top + pageYScroll, w: rect.width
+    descriptors = []
 
-    getDoubleTapZoom: (isMouseClick, item) ->
-      return 0.77 if isMouseClick
-      if item.initialZoomLevel < 0.7 then 1 else 1.33
+    $photos.each ->
+      $el = $(this)
+      if src = ($el.attr('data-url') or $el.attr('src'))
+        value   = $el.attr('data-photoswipe-no-preshow')
+        preshow = not value? or value in [false, 'false']
 
-  new PhotoSwipe($pswp[0], PhotoSwipeUI_Default, descriptors, options)
+        obj =
+          $el: $el
+          src: src
+          msrc: if preshow then $el.attr('data-thumb-url') or $el.attr('src')
+          w: $el.attr('data-width') or $el.attr('width') or $el.prop('naturalWidth') or 800
+          h: $el.attr('data-height') or $el.attr('height') or $el.prop('naturalHeight') or 600
+          title: $el.siblings('figcaption')?.text?() || $el.attr('alt') || $el.attr('data-description')
+        descriptors.push(obj)
 
-$pswp = null
+    options =
+      history: false
+      index: if $photo? then $photos.index($photo) else 0
+      mainClass: 'pswp--minimal--dark'
+      barsSize: top: 0, bottom: 0
+      closeEl: true
+      captionEl: true
+      fullscreenEl: true
+      zoomEl: true
+      shareEl: false
+      counterEl: true
+      arrowEl: true
+      preloaderEl: true
+      bgOpacity: 0.85
+      tapToClose: true
+      tapToToggleControls: false
+      closeOnScroll: false
+      maxSpreadZoom: 1.2
+      getThumbBoundsFn: (index) ->
+        $el = descriptors[index]?.$el
+        if $el?[0]?
+          value = $el.attr('data-photoswipe-no-thumb-animation')
+          anim  = not value? or value in [false, 'false']
+          if anim
+            pageYScroll = window.pageYOffset or document.documentElement.scrollTop
+            rect = $el[0].getBoundingClientRect()
+            x: rect.left, y: rect.top + pageYScroll, w: rect.width
 
-callback = ->
-  $('#pswp').remove()
-  $('body').append(galleryTemplate)
-  $pswp = $('#pswp')
-  return
+      getDoubleTapZoom: (isMouseClick, item) ->
+        return 0.77 if isMouseClick
+        if item.initialZoomLevel < 0.7 then 1 else 1.33
 
-if Turbolinks?
-  if Turbolinks.supported
-    $(document).on 'page:change', callback
-  else
-    $(callback)
-else
-  $(document).on 'ready pjax:end', callback
+    new PhotoSwipe(@pswp, PhotoSwipeUI_Default, descriptors, options)
 
 $ ->
   $(document).on 'click', [
@@ -116,9 +117,9 @@ $ ->
     $el = $(e.currentTarget)
     if $el.prop('tagName').toLowerCase() != 'img'
       $el = $el.find('img:not([data-no-photoswipe])')
-    createGallery($el, $pswp)?.init()
+    new PhotoSwipeGalleryBuilder().build($photo: $el)?.init()
     return
 
   $(document).on 'click', '.js-wysiwyg figure', (e) ->
-    createGallery($(e.currentTarget).find('img'), $pswp)?.init()
+    new PhotoSwipeGalleryBuilder().build($photo: $(e.currentTarget).find('img'))?.init()
     return

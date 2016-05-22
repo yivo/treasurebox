@@ -14,10 +14,11 @@
   clip: rect(0, 0, 0, 0)
   position: absolute
 
-=inline-block
+=inline-block($align: middle)
   display: -moz-inline-stack
   display: inline-block
-  vertical-align: middle
-  *vertical-align: auto
+  @if $align != none
+    vertical-align: $align
+    *vertical-align: auto
   *zoom: 1
   *display: inline
