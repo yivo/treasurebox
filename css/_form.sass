@@ -1,6 +1,14 @@
 =input-placeholder
-  &:-moz-placeholder, // Firefox 18-
-  &::-moz-placeholder, // Firefox 19+
-  &:-ms-input-placeholder,
+  // Firefox 18-
+  &:-moz-placeholder
+    @content
+
+  // Firefox 19+
+  &::-moz-placeholder
+    @content
+
+  &:-ms-input-placeholder
+    @content
+
   &::-webkit-input-placeholder
     @content
